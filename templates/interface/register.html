@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>E-chat注册</title>
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/zcreset.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/zcmain.css">
+	<script type="text/javascript" src="/static/interface/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="/static/interface/js/register.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var i=0;
+			var $btn = $('#allow');
+
+				$btn.click(function(){
+					i++;
+					//console.log(i);
+					// this 指的是原生的this，它表示当前点击的对象，使用jquery的对象需要用$(this)
+					if(i%2==1){
+						$('.aaaaa').remove();
+						$('.reg_sub').append("<div class='sub'><input type='submit' value='注 册' name=''></div>");
+					}
+					else
+					{
+						$('.sub').remove();
+						$('.reg_sub').append('<div class="aaaaa">注 册</div>');
+					}
+				})
+		})
+	</script>
+</head>
+<body>
+	<div class="register_con">
+		<div class="l_con fl">
+			<a class="reg_logo" ><img src="/static/interface/images/logo1.jpg"></a>
+			<div class="reg_slogan">足不出户  ·  了解新鲜事</div>
+			<div class="reg_banner"></div>
+		</div>
+
+		<div class="r_con fr">
+			<div class="reg_title clearfix">
+				<h1>用户注册</h1>
+				<a href="#">登录</a>
+			</div>
+			<div class="reg_form clearfix">
+				<form action="/signup/" method="post">
+				<ul>
+					<li>
+						<label>用户名:</label>
+						<input type="text" name="user_name" id="user_name">
+						<span class="error_tip">提示信息</span>
+					</li>					
+					<li>
+						<label>密码:</label>
+						<input type="password" name="pwd" id="pwd">
+						<span class="error_tip">提示信息</span>
+					</li>
+					<li>
+						<label>确认密码:</label>
+						<input type="password" name="cpwd" id="cpwd">
+						<span class="error_tip">提示信息</span>
+					</li>
+					<li>
+						<label>邮箱:</label>
+						<input type="text" name="email" id="email">
+						<span class="error_tip">提示信息</span>
+					</li>
+					<li class="agreement">
+						<input type="checkbox" name="allow" id="allow">
+						<label>同意”E-chat用户使用协议“</label>
+						<span class="error_tip2">提示信息</span>
+					</li>
+					<li class="reg_sub">
+						{% if flag %}
+							<div style="font-size:15px;color:red">用户已存在！</div>
+						{% endif %}
+						<div class="aaaaa">注 册</div>
+					</li>
+				</ul>				
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="footer no-mp">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">祝福我们</a>
+		</div>
+		<p>CopyRight © 2018 哈尔滨工程大学虎車 All Rights Reserved</p>
+		<p>电话：5201314</p>
+	</div>
+	
+</body>
+</html>

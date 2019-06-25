@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% load user_tags %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>写微说</title>
+
+<link rel="stylesheet" type="text/css" href="/static/js/simditor-2.3.5/styles/simditor.css" />
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/js/simditor-2.3.5/scripts/module.js"></script>
+<script type="text/javascript" src="/static/js/simditor-2.3.5/scripts/hotkeys.min.js">
+</script><script type="text/javascript" src="/static/js/simditor-2.3.5/scripts/uploader.js">
+</script><script type="text/javascript" src="/static/js/simditor-2.3.5/scripts/simditor.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/js/simditor-2.3.5/emoji/styles/simditor-emoji.css" />
+<script src="/static/js/simditor-2.3.5/emoji/lib/simditor-emoji.js"></script>
+
+    <script>
+        $(function() {
+            var editor = new Simditor({
+                    textarea: $('#editor_textarea'),
+                    toolbarFloat: false,
+                    toolbar: ['title','bold','italic','underline','strikethrough','fontScale','color','ol'
+                        ,'ul','blockquote','code','table','link','image','hr','indent','outdent','alignment','emoji',
+                    ],
+                    emoji: {
+                        imagePath: '/static/js/simditor-2.3.5/emoji/images/emoji/',
+                        images: ['smile.png','smiley.png','laughing.png',
+                        'blush.png','heart_eyes.png','smirk.png','flushed.png','grin.png','wink.png',
+                        'kissing_closed_eyes.png','stuck_out_tongue_winking_eye.png','stuck_out_tongue.png',
+                        'sleeping.png','worried.png','expressionless.png','sweat_smile.png','cold_sweat.png',
+                        'joy.png','sob.png','angry.png','mask.png','scream.png','sunglasses.png','heart.png',
+                        'broken_heart.png','star.png','anger.png','exclamation.png','question.png','zzz.png',
+                        'thumbsup.png','thumbsdown.png','ok_hand.png','punch.png','v.png','clap.png','muscle.png',
+                        'pray.png','skull.png','trollface.png' ],
+                    },
+                    upload:{
+                        url:'/myadmin/upload/files', /* 注意myadmin前面的斜杠不能省掉，这是相对于根目录的*/
+                        filekey:'upload_file', /* 相当于html标签里面的name值 */
+                    },
+                    imageButton: 'upload',
+            });
+
+            {% if note %}
+                $('#input_head').attr("value", "{{ note.heads }}");
+                $('.simditor-body').append('{{ note.message|safe|addslashes }}');
+            {% endif %}
+        });
+
+
+    </script>
+
+    <style>
+        #main {
+            padding:0px 0px 10px 0px;
+        }
+        #input_head{
+            font-size: 12px;
+            width:70%;
+            margin:0 0 5px 0px;
+            text-align:left;
+            color: #494949;
+            border-radius: 4px;
+            border-top:1px solid #C0C0C0;
+            border-left:1px solid #C0C0C0;
+            border-bottom:1px solid #C0C0C0;
+            border-right:1px solid #C0C0C0;
+            background:#fff;
+        }
+        #input_head_text{
+            font-size: 15px;
+            color: #494949;
+            margin:0 0 0px 5px;
+        }
+    </style>
+</head>
+
+<body style="background:#D0D0D0;">
+<div id="post-message" class="form">
+    <form method="post" action="/handle_write_blog/">
+        {% csrf_token %}
+        <table cellpadding="0" cellspacing="0" style="width:100%; margin-bottom:8px;background:#D0D0D0;">
+            <tr>
+                <td align="left" width="30%">
+                        <a href="/blogs_show/" style="font-size:25px; text-decoration: none; color: #1E90FF;"> < </a>
+
+                </td>
+                <td align="center" width="33%">
+                    <img src="{{ user.face|face16 }}" class="face16"/>
+                </td>
+                <td align="right" >
+                    <button type="submit" class="submit wide" style="color: #1E90FF;"> 提 交 </button>
+                </td>
+            </tr>
+        </table>
+        <div class="input">
+            <span id="input_head_text">标题：</span><input type="text" id="input_head" placeholder="&nbsp;&nbsp;请先填写文章标题..." name="message_head">
+            <textarea id="editor_textarea" placeholder="这里输入内容" autofocus name="message"></textarea>
+        </div>
+        <input type="file" id="imageFileUpload" style="display: none">
+
+    </form>
+</div>
+
+</body>

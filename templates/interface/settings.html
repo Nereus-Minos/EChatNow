@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/index1.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/blog.css">
+	<script type="text/javascript" src="/static/interface/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="/static/interface/js/bootstrap.min.js"></script>
+	<title>E-chat首页</title>
+</head>
+
+{% load i18n %}
+{% load user_tags %}
+
+    <script>
+        $(function() {
+
+            $("#editor_picture").on('click','#upload_images',function(){
+
+                $("#imageFileUpload").trigger("click");
+                $("#imageFileUpload").change(function(){
+                    var fileUploadControl = document.getElementById("imageFileUpload");
+                    var localFile = fileUploadControl.files[0];
+                    if (/.(gif|jpg|jpeg|png|bmp)$/.test(localFile.name)){
+                        var formData = new FormData();
+                        formData.append("image", localFile);
+                        $.ajax({
+                            url: '{% url 'upload_user_img' %}',
+                            type: 'POST',
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                $("#user_face").attr("src",data);
+                                $("#hiden_src").attr("value",data);
+                            },
+                            error:function () {
+                                alert('图片上传失败')
+                            }
+                        });
+                    }
+                    else {
+                        alert('只能上传图片')
+                    }
+                });
+            });
+
+        });
+    </script>
+<body>
+<div class="form">
+    <div class="message">{{ state.message }}</div>
+    <form action="{% url 'settings' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="field">昵&nbsp;&nbsp;&nbsp;&nbsp;称:</td>
+                <td><input type="text" name="realname" class="text" value="{{ user.realname }}" size="20" /></td>
+            </tr>
+            <tr>
+                <td class="field">邮&nbsp;&nbsp;&nbsp;&nbsp;箱:</td>
+                <td><input type="text" name="email" class="text"  value="{{ user.email }}" size="20" /></td>
+            </tr>
+            <tr>
+                <td class="field">密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
+                <td><input type="text" name="password" class="text" size="20" /></td>
+            </tr>
+            <tr>
+                <td class="field">确认密码:</td>
+                <td><input type="text" name="confirm_password" class="text" size="20" /></td>
+            </tr>
+            <tr id="editor_picture">
+                <td class="field">头&nbsp;&nbsp;&nbsp;&nbsp;像:</td>
+                <td><img style="margin-right:5px;" src="{{ user.face|face24 }}" class="face24" alt="{% trans 'My face' %}" id="user_face"/>
+                    <input style="display:none;" value="{{ user.face|face24 }}" id="hiden_src" name="face_src">
+                    <input type="button" value="上传头像" id="upload_images" style="font-size:10px;">
+                    <input type="file" id="imageFileUpload" style="display: none" name="face">
+                </td>
+            </tr>
+            <tr>
+                <td class="field">个&nbsp;&nbsp;&nbsp;&nbsp;签:</td>
+                <td><textarea name="about" class="text" cols="20" style="overflow:hidden;" rows="4">{{ user.about }}</textarea></td>
+            </tr>
+            <tr>
+                <td class="field"></td>
+                <td><button type="submit" class="submit" style="cursor: pointer; width: 50px;background: #1E90FF; color:#fff;border-radius: 6px;padding-left:10px;padding-right:10px;"> 保 存 </button></td>
+            </tr>
+        </table>
+    </form>
+    <div>&nbsp;</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load user_tags %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/index1.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/blog.css">
+	<script type="text/javascript" src="/static/interface/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="/static/interface/js/bootstrap.min.js"></script>
+	<title>E-chat博客</title>
+
+	<script>
+        $(function() {
+
+        	var before = "<div class='col-lg-10'><div class='thumbnail'><div class='article-item-box'>";
+
+			var head = "<h4 class='biaoti'>{{ blog.heads }}</h4>";
+			var blog_content = '<p class="content">{{ blog.message|safe|addslashes }}</p>';
+
+			var blog_data = "<p class='info-box'><span class='date'>{{ blog.addtime }}</span><span class='point'>丨</span>";
+			var blog_read_num = "<span class='read-num'>阅读数 <span class='num'>11</span> </span>";
+			var blog_point = "<span class='point'>丨</span><span class='read-num'>评论数 <span class='num'>0</span> </span>";
+			var blog_opt = "<span class='opt-box'><a href=''>编辑</a>&nbsp;<a href=\"{% url 'blog_delete' blog.id %}\">删除</a></span></p>";
+
+			var end = "</div></div></div>";
+
+			$("#blog_list").append(before+head+blog_content+blog_data+blog_read_num+blog_point+blog_opt+end);
+
+        });
+    </script>
+
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#mymenu">
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand"><img src="/static/interface/images/logo1.jpg" alt=""></a>
+	 		</div>
+			<div class="collapse navbar-collapse" id="mymenu">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">首页</a></li>
+					<li><a href="/">项目</a></li>
+					<li><a href="/blogs_show/">个人博客</a></li>
+					<li><a href="{% url 'write_blog' 0 %}">写博客</a></li>
+					<li><a href="/users_list/">微聊</a></li>
+					<li><a href="#">好友圈</a></li>
+					<li><a href="/settings/">设置</a></li>
+					<li><a href="/signout/">退出</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+<!--	后端数据插入-->
+	<div class="container goods_list"><div class="row" id="blog_list"></div></div>
+
+</body>
+</html>

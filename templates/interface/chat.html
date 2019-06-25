@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/index1.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/blog.css">
+	<script type="text/javascript" src="/static/interface/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="/static/interface/js/bootstrap.min.js"></script>
+	<title>E-chat首页</title>
+</head>
+{% load user_tags %}
+
+    <style>
+        #main {
+            padding:0px 0px 10px 0px;
+        }
+        #container1 {
+            background:#D8D8D8;
+            position: relative;
+            box-shadow: 20px 20px 55px #777;
+        }
+        .header {
+            background: #000;
+            height: 6%;
+            color: #fff;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+        .footer1 {
+            height: 8%;
+            background: #D8D8D8;
+        }
+        .footer1 input {
+            font-size: 8px;
+            width: 75%;
+            height: 80%;
+            border-radius: 6px;
+            right: 10px;
+            position: relative;
+            top: 0px;
+            left: 2px;
+        }
+        .footer1 #chat-message-submit {
+
+            display: inline-block;
+            width: 20%;
+            height: 90%;
+            background: #ccc;
+            cursor: pointer;
+            text-align: center;
+            right: 10px;
+            border-radius: 6px;
+            position: relative;
+            top: 1px;
+            left: 5px;
+        }
+        .footer1 span:hover {
+            color: #fff;
+            background: #999;
+        }
+        .content {
+            font-size: 8px;
+            width: 100%;
+            height: 86%;
+            overflow: auto;
+            padding: 2px;
+        }
+        .content li {
+            width: 90%;
+            margin-top: 2px;
+            padding-left: 2px;
+            display: block;
+            clear: both;
+            overflow: hidden;
+        }
+        .content li span{
+            width: 90%;
+            word-wrap:break-word;
+            background: #7cfc00;
+            padding: 2px;
+            border-radius: 10px;
+            float: left;
+            margin: 2px 0 2px 0px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 3px #ccc;
+        }
+    </style>
+    <script>
+
+        function getNow(s) {
+            return s < 10 ? '0' + s: s;
+        }
+
+        function GetTime() {
+            <!--显示时间-->
+            var myDate = new Date();
+            var year=myDate.getFullYear();
+            //获取当前月
+            var month=myDate.getMonth()+1;
+            //获取当前日
+            var date=myDate.getDate();
+            var h=myDate.getHours();       //获取当前小时数(0-23)
+            var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+            var s=myDate.getSeconds();
+
+            var dataspan = document.querySelector('.header').querySelector('#rightspan');
+
+            if(dataspan.innerHTML != ''){
+                dataspan.innerHTML == '';
+            }
+
+
+            dataspan.innerHTML = year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+
+        }
+
+        window.onload = function(){
+
+             $(function () {
+
+                  // 清空输入框
+                  $("#chat-message-input").val('');
+
+                  var RHeight = window.screen.availHeight * 0.6;
+                  $("#container1").height(RHeight);
+
+                  var content = document.querySelector('#container1').querySelectorAll('ul')[0];
+
+                  <!--显示时间-->
+                  setInterval("GetTime()", 1000);
+
+                  <!--返回-->
+                  document.querySelector('.header').querySelector('#return').onclick = function(){
+                     window.location.replace('/users_list/');
+                  }
+
+                  <!--之前消息列表-->
+                  var userface = document.querySelector('#user_face').value;
+                  var friendface = document.querySelector('#friend_face').value;
+
+                  {% for message in messages %}
+                        <!--# 判断是否为以前自己发的数据-->
+                        <!--            alert("{{ message.1 }}")-->
+                        {% if message.0 %}
+                            $(".content").append('<li><img src="'+ userface +'" class="face16" style="float: right;"><span style="float: right;background: #7cfc00;">'+ "{{ message.1 }}" +'</span></li>');
+                        {% else %}
+                            $(".content").append('<li><img src="'+ friendface +'" class="face16" style="float: left;"><span style="float: left;background: #fff;">'+ "{{ message.1 }}" +'</span></li>');
+                        {% endif %}
+                  {% endfor %}
+
+                  // 内容过多时,将滚动条放置到最底端
+                  document.querySelector('#container1').querySelector('.content').scrollTop=content.scrollHeight;
+
+                  $('#chat-message-submit').click(function(){
+
+                         if($("#chat-message-input").val() ==''){
+                            alert('不能发送空消息');
+                         }else {
+                             $(".content").append('<li><img src="'+ userface +'" class="face16" style="float: right;"><span style="float: right;background: #7cfc00;">'+ $("#chat-message-input").val() +'</span></li>');
+                             $.ajax({
+                                 type: "GET",
+                                 url: "/handle_chatMessage/",
+                                 data: {init: 'yes', send_message:$("#chat-message-input").val(), friend_id: {{ friend_id }}},
+                                 dataType: "json",
+                                 success: function(data){
+                                    //清空输入框
+                                    $("#chat-message-input").val('');
+                                 },
+                             });
+
+                             // 内容过多时,将滚动条放置到最底端
+                             document.querySelector('#container1').querySelector('.content').scrollTop=content.scrollHeight;
+                         }
+                  });
+
+                  <!--等待消息-->
+                  // 定时器
+                  var t1=window.setInterval(refreshCount, 500);
+                  function refreshCount() {
+                        // 通过轮询的方法查看有没有新消息
+                     $.ajax({
+                             type: "GET",
+                             url: "/handle_chatMessage/",
+                             data: {init: 'no', friend_id: {{ friend_id }}},
+                             dataType: "json",
+                             success: function(data){
+<!--                                console.log(data.messages);-->
+                                for(var i=0; i < (data.messages).length; i++){
+<!--                                    console.log((data.messages)[i]);-->
+                                    $(".content").append('<li><img src="'+ friendface +'" class="face16" style="float: left;"><span style="float: left;background: #fff;">'+ (data.messages)[i] +'</span></li>');
+
+                                    // 内容过多时,将滚动条放置到最底端
+                                    document.querySelector('#container1').querySelector('.content').scrollTop=content.scrollHeight;
+                                }
+                             },
+
+                         });
+                  }
+                    <!--//去掉定时器的方法  -->
+                    <!--window.clearInterval(t1);-->
+
+              });
+
+        };
+
+    </script>
+<body>
+    <div id="container1">
+        <div class="header">
+            <span id="return" style="float: left;cursor:pointer;">
+                <span style="float: left;font-size: 18px;position: relative;top:-2px;"><</span>
+                <span style="float: left;font-size: 8px;">{{username}}</span>
+            </span>
+            <span id="rightspan" style="float: right;font-size: 8px;"></span>
+
+
+        </div>
+        <ul class="content">
+  </ul>
+        <div class="footer1">
+            <input id="chat-message-input" type="text" placeholder="说点什么吧...">
+
+            <input type="hidden" id="user_face" value={{ user_face|face16 }}>
+
+            <input type="hidden" id="friend_face" value={{ friend_face|face16 }}>
+
+            <input id="chat-message-submit" type="button" value="发送"/>
+        </div>
+    </div>
+</body>
+</html>

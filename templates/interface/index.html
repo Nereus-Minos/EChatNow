@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/index.css">
+	<script type="text/javascript" src="/static/interface/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="/static/interface/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/interface/css/sanlan.css">
+	<script type="text/javascript" src="/static/interface/js/set_root.js"></script>
+	<script type="text/javascript" src="/static/interface/js/swiper.jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var swiper = new Swiper('.swiper-container', {
+					  pagination: '.swiper-pagination',
+					  prevButton: '.swiper-button-prev',
+					  nextButton: '.swiper-button-next',
+					  // 初始的幻灯片是第几张
+					  initialSlide :0,
+
+					 // 小圆点是否可点击
+					  paginationClickable: false,
+
+					  //是否连续播放(设置false会在最后一张返回)
+					  loop: true,
+
+					  // 设置多长时间间隔播放一张
+					  autoplay:2000,
+
+					  // 用户操作后还是否自动播放
+					  autoplayDisableOnInteraction:true
+				})
+		});
+
+	</script>
+
+	<title>E-chat首页</title>
+</head>
+<body>
+	<!-- 导航条，收缩隐藏菜单 -->
+	<div class="navbar navbar-inverse navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#mymenu">
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+					 <span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand"><img src="/static/interface/images/logo1.jpg" alt=""></a>
+	 		</div>
+			<div class="collapse navbar-collapse" id="mymenu">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">首页</a></li>
+					<li><a href="/">项目</a></li>
+					<li><a href="/blogs_show/">博客</a></li>
+					<!-- <li><a href="#">微聊</a></li> -->
+					<li><a href="/interface/outdown.html">下载</a></li>
+					<li><a href="/signin/">登录</a></li>
+					<li><a href="/signup/">注册</a></li>
+				</ul>
+				<form class="navbar-form navbar-right">
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" name="" class="form-control" placeholder="请输入搜索内容">
+							<span class="input-group-btn">
+								<button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- 导航条，收缩隐藏菜单 -->
+
+	<!-- 滑动幻灯片 -->
+	<div class="slide">
+				<div class="swiper-container">
+				  <div class="swiper-wrapper">
+				    <div class="swiper-slide"><a href="#"><img src="/static/interface/images/together.jpg" alt=""></a></div>
+				    <div class="swiper-slide"><a href="/interface/outproject.html"><img src="/static/interface/images/python.jpg" alt=""></a></div>
+				    <div class="swiper-slide"><a href="/interface/outproject.html"><img src="/static/interface/images/c.jpg" alt=""></a></div>
+				  </div>
+				    <div class="swiper-pagination"></div>
+				   <div class="swiper-button-prev"></div>
+				   <div class="swiper-button-next"></div>
+				</div>
+	</div>
+	<!-- 滑动幻灯片 -->
+
+
+	<!-- 三大模块展示 -->
+	<div class="wrap">
+			<div class="content-top" >
+				<div class="col_1_of_3 span_1_of_3">
+					<h3 style="font-family: '微软雅黑 Light';">项目相关</h3>
+					<img src="/static/interface/images/icon1.png" alt=""/>
+					<p>主要是提供一些训练好的模型的测试效果，暂时主要是提供人脸图像增强技术方面的模型测试，后续可能会有更多的模型提供测试。</p>
+					<div class="btn-link"><a href="/interface/outproject.html">点此进入</a></div>
+				</div>
+				<div class="col_1_of_3 span_1_of_3">
+					<h3 style="font-family: '微软雅黑 Light';">个人博客</h3>
+					<img src="/static/interface/images/icon.png" alt=""/>
+					<p>主要是提供一些训练好的模型的测试效果，暂时主要是提供人脸图像增强技术方面的模型测试，后续可能会有更多的模型提供测试。</p>
+					<div class="btn-link"><a href="/interface/outblog.html">点此进入</a></div>
+				</div>
+				<div class="col_1_of_3 span_1_of_3">
+					<h3 style="font-family: '微软雅黑 Light';">资源下载</h3>
+					<img src="/static/interface/images/icon2.png" alt=""/>
+					<p>所有的资源都是无偿分享的，目前包含的资源主要有翻译的论文，搜集的数据集，参与的工程代码和一些学习笔记以及推荐书籍等。</p>
+					<div class="btn-link"><a href="/interface/outdown.html">点此进入</a></div>
+				</div>
+			    <div class="clear"></div>
+			</div>
+	</div>
+	<!-- 三大模块展示 -->
+
+	<div class='footerr'></div>
+
+	<div class="container-fluid footer">
+		<div class="links">
+		<a href="#">关于我们</a>
+		<span>|</span>  
+		<a href="#">联系我们</a> 
+		<span>|</span> 
+		<a href="#">祝福我们</a>
+		<span>|</span> 
+		<a href="#">友情链接</a></div>
+	<p>CopyRight © 2018 哈尔滨工程大学虎車 All Rights Reserved</p>
+	<p>电话：5201314</p>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+/*搜索*/
+.nav > li > a{
+	padding:10px 14px;
+}
+.navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    }
+/*搜索*/
+.navbar-brand img{
+	width:100px;
+	height:39px;
+}
+.navbar-brand{
+	padding:8px 15px;
+}
+.navbar-inverse {
+ 
+    background-color: #fff;
+    border-color: #d6dfea;
+    box-shadow: 0 0 1px 0px rgba(0,0,0,0.3),0 0 6px 2px rgba(0,0,0,0.15);
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #333;
+}
+.navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>.active>a:focus {
+    color: #eb7350;;
+    background-color: #fff;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus{
+	color: #eb7350;;
+}
+.navbar-inverse .navbar-toggle{
+	background-color: #eee;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #eee;
+}
+.navbar-inverse .navbar-toggle:hover,.navbar-inverse .navbar-toggle:focus {
+    background-color: lightblue;
+}
+.navbar-inverse .navbar-collapse,.navbar-inverse .navbar-form {
+    border-color: #fff
+}
+
+.navbar{
+	margin-bottom:0;
+}
+
+
+/*.footer{
+	position:absolute;
+	left:0;
+	bottom:0;
+	width:100%;
+	height:2.5rem;
+	background-color:#eff4fa;
+	padding-bottom:20px;
+}
+
+.footer .links{
+	text-align:center;
+	margin-top:35px;
+}
+
+.footer .links a{
+	color:#1d5494;
+}
+
+.footer .links span{
+	color:#1d5494;
+	padding:0 10px;
+}
+
+.footer p{
+	text-align:center;
+	margin:10px 0;
+	color:#1d5494;
+}*/

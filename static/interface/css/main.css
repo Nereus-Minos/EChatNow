@@ -1,0 +1,137 @@
+.main_wrap{
+	position:absolute;
+	background-color:gold;
+	left:0px;
+	right:0px;
+	top:0px;
+	bottom:0px;
+}
+
+
+/* 顶部样式   */
+
+.header{
+	height:2.5rem;
+	background-color:#37ab40;
+	position:relative;
+}
+
+.logo{
+	display:block;
+	width:4.45rem;
+	height:1.8rem;
+	margin:0.35rem auto 0;
+}
+
+.logo img{
+	width:100%;
+}
+
+.search{
+	width:1.35rem;
+	height:1.35rem;
+	position:absolute;
+	right:0.75rem;
+	top:0.6rem;
+	background:url(../images/icons.png) left top no-repeat;
+	background-size:3.0rem 42.0rem;
+}
+
+
+/* 中间滚动区域的样式   */
+
+
+
+.slide{
+	height:7.0rem;
+
+}
+
+.slide img{
+	width:100%;
+}
+
+
+
+
+
+
+.swiper-button-next,.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    width: 14px;
+    height: 22px;
+    margin-top: -11px;
+    z-index: 10;
+    cursor: pointer;
+    -moz-background-size: 27px 44px;
+    -webkit-background-size: 27px 44px;
+    background-size: 14px 22px;
+    background-position: center;
+    background-repeat: no-repeat
+}
+
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #ff8800;
+}
+
+.swiper-pagination {
+	text-align:right;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets span:last-child{
+	margin-right:20px;
+}
+
+.footerr{
+	width:100%;
+	height:222px;
+}
+/*@media (max-width:1500px){
+	.footerr{
+		height:250px;
+	}
+}
+
+@media (max-width:1100px){
+	.footerr{
+		height:260px;
+	}
+}
+@media (max-width:950px){
+	.footerr{
+		height:270px;
+	}
+}
+@media (max-width:900px){
+	.footerr{
+		height:280px;
+	}
+}*/
+.footer{
+	background-color:#eff4fa;
+	padding-bottom:20px;
+}
+
+.footer .links{
+	text-align:center;
+	margin-top:35px;
+}
+
+.footer .links a{
+	color:#1d5494;
+}
+
+.footer .links span{
+	color:#1d5494;
+	padding:0 10px;
+}
+
+.footer p{
+	text-align:center;
+	margin:10px 0;
+	color:#1d5494;
+}
+
